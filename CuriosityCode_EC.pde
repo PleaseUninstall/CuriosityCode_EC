@@ -66,7 +66,7 @@ void draw() {
   } else if (gameScreen == 1) { 
     gS();
   } else if (gameScreen == 2) { 
-    gameOverScreen();
+    gOS();
   }
 }
 
@@ -93,9 +93,9 @@ void gS() {
   drawHealthBar();
   printScore();
   wallAdder();
-  wallHandler();
+  wH();
 }
-void gameOverScreen() {
+void gOS() {
   background(44, 62, 80);
   textAlign(CENTER);
   fill(236, 240, 241);
@@ -152,7 +152,7 @@ void drawRacket() {
   rect(mouseX, mouseY, racketWidth, racketHeight, 5);
 }
 
-void wallAdder() {
+void wA() {
   if (millis()-lastAddTime > wallInterval) {
     int randHeight = round(random(minGapHeight, maxGapHeight));
     int randY = round(random(0, height-randHeight));
@@ -162,15 +162,15 @@ void wallAdder() {
     lastAddTime = millis();
   }
 }
-void wallHandler() {
+void wH() {
   for (int i = 0; i < walls.size(); i++) {
-    wallRemover(i);
-    wallMover(i);
-    wallDrawer(i);
-    watchWallCollision(i);
+    wR(i);
+    wM(i);
+    wD(i);
+    wWC(i);
   }
 }
-void wallDrawer(int index) {
+void wD(int index) {
   int[] wall = walls.get(index);
   // get gap wall settings 
   int gapWallX = wall[0];
@@ -185,18 +185,18 @@ void wallDrawer(int index) {
   rect(gapWallX, 0, gapWallWidth, gapWallY, 0, 0, 15, 15);
   rect(gapWallX, gapWallY+gapWallHeight, gapWallWidth, height-(gapWallY+gapWallHeight), 15, 15, 0, 0);
 }
-void wallMover(int index) {
+void wM(int index) {
   int[] wall = walls.get(index);
   wall[0] -= wallSpeed;
 }
-void wallRemover(int index) {
+void wR(int index) {
   int[] wall = walls.get(index);
   if (wall[0]+wall[2] <= 0) {
     walls.remove(index);
   }
 }
 
-void watchWallCollision(int index) {
+void wWC (int index) {
   int[] wall = walls.get(index);
   // get gap wall settings 
   int gapWallX = wall[0];
