@@ -90,9 +90,9 @@ void gS() {
   applyGravity();
   applyHorizontalSpeed();
   keepInScreen();
-  drawHealthBar();
-  printScore();
-  wallAdder();
+  dHB();
+  pS();
+  wA();
   wH();
 }
 void gOS() {
@@ -219,7 +219,7 @@ void wWC (int index) {
     (ballY+(ballSize/2)>wallTopY) &&
     (ballY-(ballSize/2)<wallTopY+wallTopHeight)
     ) {
-    decreaseHealth();
+    dH();
   }
   if (
     (ballX+(ballSize/2)>wallBottomX) &&
@@ -227,7 +227,7 @@ void wWC (int index) {
     (ballY+(ballSize/2)>wallBottomY) &&
     (ballY-(ballSize/2)<wallBottomY+wallBottomHeight)
     ) {
-    decreaseHealth();
+    dH();
   }
 
   if (ballX > gapWallX+(gapWallWidth/2) && wallScored==0) {
@@ -237,7 +237,7 @@ void wWC (int index) {
   }
 }
 
-void drawHealthBar() {
+void dHB() {
   noStroke();
   fill(189, 195, 199);
   rectMode(CORNER);
@@ -252,7 +252,7 @@ void drawHealthBar() {
   rectMode(CORNER);
   rect(ballX-(healthBarWidth/2), ballY - 30, healthBarWidth*(health/maxHealth), 5);
 }
-void decreaseHealth() {
+void dH() {
   health -= healthDecrease;
   if (health <= 0) {
     gameOver();
@@ -261,7 +261,7 @@ void decreaseHealth() {
 void score() {
   score++;
 }
-void printScore() {
+void pS() {
   textAlign(CENTER);
   fill(0);
   textSize(30); 
