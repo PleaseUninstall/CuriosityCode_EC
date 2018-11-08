@@ -8,7 +8,7 @@
 // 1: Game Screen
 // 2: Game-over Screen
 
-int gameScreen = 0;
+float gameScreen = 0;
 float ballX, ballY;
 float ballSize = 20;
 float ballColor = color(0);
@@ -49,7 +49,7 @@ void draw() {
     initScreen();
   } 
   else if (gameScreen == 1) {
-    gameScreen();
+    gS();
     drawBall();
   }
   else if (gameScreen == 2) {
@@ -70,7 +70,7 @@ void initScreen() {
 
   // codes of initial screen
 }
-void gameScreen() {
+void gS() {
   background(255);
   applyGravity();
   keepInScreen();
