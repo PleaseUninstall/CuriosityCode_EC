@@ -8,7 +8,7 @@
 // 1: Game Screen
 // 2: Game-over Screen
 
-float gameScreen = 0;
+int gameScreen = 0;
 float ballX, ballY;
 float ballSize = 20;
 float ballColor = color(0);
