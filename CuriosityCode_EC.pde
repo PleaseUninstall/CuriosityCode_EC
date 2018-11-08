@@ -76,7 +76,13 @@ void gS() {
   keepInScreen();
   drawRacket();
   watchRacketBounce();
-  applyHorizontalSpeed();}
+  applyHorizontalSpeed();
+wallAdder();
+wallHandler();
+
+}
+ 
+  
   
   // codes of game screen
 
@@ -144,10 +150,50 @@ void watchRacketBounce() {
       if (overhead<0) {
         ballY+=overhead;
         ballSpeedVert+=overhead;
-      }
-    }
+        ballSpeedHorizon = (ballX - mouseX)/5;
+      }}
+    }}
+   void wallAdder() {
+  if (millis()-lastAddTime > wallInterval) {
+    int randHeight = round(random(minGapHeight, maxGapHeight));
+    int randY = round(random(0, height-randHeight));
+    // {gapWallX, gapWallY, gapWallWidth, gapWallHeight}
+    int[] randWall = {width, randY, wallWidth, randHeight}; 
+    walls.add(randWall);
+    lastAddTime = millis();
   }
 }
+void wallHandler() {
+  for (int i = 0; i < walls.size(); i++) {
+    wallRemover(i);
+    wallMover(i);
+    wallDrawer(i);
+  }
+}
+void wallDrawer(int index) {
+  int[] wall = walls.get(index);
+  // get gap wall settings 
+  int gapWallX = wall[0];
+  int gapWallY = wall[1];
+  int gapWallWidth = wall[2];
+  int gapWallHeight = wall[3];
+  // draw actual walls
+  rectMode(CORNER);
+  fill(wallColors);
+  rect(gapWallX, 0, gapWallWidth, gapWallY);
+  rect(gapWallX, gapWallY+gapWallHeight, gapWallWidth, height-(gapWallY+gapWallHeight));
+}
+void wallMover(int index) {
+  int[] wall = walls.get(index);
+  wall[0] -= wallSpeed;
+}
+void wallRemover(int index) {
+  int[] wall = walls.get(index);
+  if (wall[0]+wall[2] <= 0) {
+    walls.remove(index);
+  }
+}
+
 
 /********* INPUTS *********/
 
