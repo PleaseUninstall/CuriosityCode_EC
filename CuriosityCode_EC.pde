@@ -84,11 +84,11 @@ void initScreen() {
 }
 void gS() {
   background(236, 240, 241);
-  drawRacket();
-  watchRacketBounce();
-  drawBall();
-  applyGravity();
-  applyHorizontalSpeed();
+dR();
+  wRB();
+  dB();
+  aG();
+  aHS();
   keepInScreen();
   dHB();
   pS();
@@ -142,11 +142,11 @@ void restart() {
   gameScreen = 1;
 }
 
-void drawBall() {
+void dB() {
   fill(ballColor);
   ellipse(ballX, ballY, ballSize, ballSize);
 }
-void drawRacket() {
+void dR() {
   fill(racketColor);
   rectMode(CENTER);
   rect(mouseX, mouseY, racketWidth, racketHeight, 5);
@@ -268,11 +268,11 @@ void pS() {
   text(score, height/2, 50);
 }
 
-void watchRacketBounce() {
+void wRB() {
   float overhead = mouseY - pmouseY;
   if ((ballX+(ballSize/2) > mouseX-(racketWidth/2)) && (ballX-(ballSize/2) < mouseX+(racketWidth/2))) {
     if (dist(ballX, ballY, ballX, mouseY)<=(ballSize/2)+abs(overhead)) {
-      makeBounceBottom(mouseY);
+      mBB(mouseY);
       ballSpeedHorizon = (ballX - mouseX)/10;
       // racket moving up
       if (overhead<0) {
@@ -282,35 +282,35 @@ void watchRacketBounce() {
     }
   }
 }
-void applyGravity() {
+void aG() {
   ballSpeedVert += gravity;
   ballY += ballSpeedVert;
   ballSpeedVert -= (ballSpeedVert * airfriction);
 }
-void applyHorizontalSpeed() {
+void aHS() {
   ballX += ballSpeedHorizon;
   ballSpeedHorizon -= (ballSpeedHorizon * airfriction);
 }
 // ball falls and hits the floor (or other surface) 
-void makeBounceBottom(float surface) {
+void mBB(float surface) {
   ballY = surface-(ballSize/2);
   ballSpeedVert*=-1;
   ballSpeedVert -= (ballSpeedVert * friction);
 }
 // ball rises and hits the ceiling (or other surface)
-void makeBounceTop(float surface) {
+void mBT(float surface) {
   ballY = surface+(ballSize/2);
   ballSpeedVert*=-1;
   ballSpeedVert -= (ballSpeedVert * friction);
 }
 // ball hits object from left side
-void makeBounceLeft(float surface) {
+void mBL(float surface) {
   ballX = surface+(ballSize/2);
   ballSpeedHorizon*=-1;
   ballSpeedHorizon -= (ballSpeedHorizon * friction);
 }
 // ball hits object from right side
-void makeBounceRight(float surface) {
+void mBR(float surface) {
   ballX = surface-(ballSize/2);
   ballSpeedHorizon*=-1;
   ballSpeedHorizon -= (ballSpeedHorizon * friction);
@@ -319,18 +319,18 @@ void makeBounceRight(float surface) {
 void keepInScreen() {
   // ball hits floor
   if (ballY+(ballSize/2) > height) { 
-    makeBounceBottom(height);
+    mBB (height);
   }
   // ball hits ceiling
   if (ballY-(ballSize/2) < 0) {
-    makeBounceTop(0);
+    mBT(0);
   }
   // ball hits left of the screen
   if (ballX-(ballSize/2) < 0) {
-    makeBounceLeft(0);
+    mBL(0);
   }
   // ball hits right of the screen
   if (ballX+(ballSize/2) > width) {
-    makeBounceRight(width);
+    mBR(width);
   }
 }
