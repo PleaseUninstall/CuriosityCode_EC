@@ -64,7 +64,7 @@ void draw() {
   if (gameScreen == 0) { 
     initScreen();
   } else if (gameScreen == 1) { 
-    gameScreen();
+    gS();
   } else if (gameScreen == 2) { 
     gameOverScreen();
   }
@@ -78,11 +78,11 @@ void initScreen() {
   textAlign(CENTER);
   fill(52, 73, 94);
   textSize(70);
-  text("Flappy Pong", width/2, height/2);
+  text("Bouncy Ballz", width/2, height/2);
   textSize(15); 
   text("Click to start", width/2, height-30);
 }
-void gameScreen() {
+void gS() {
   background(236, 240, 241);
   drawRacket();
   watchRacketBounce();
@@ -100,7 +100,7 @@ void gameOverScreen() {
   textAlign(CENTER);
   fill(236, 240, 241);
   textSize(12);
-  text("Your Score", width/2, height/2 - 120);
+  text("Your Total Points", width/2, height/2 - 120);
   textSize(130);
   text(score, width/2, height/2);
   textSize(15);
