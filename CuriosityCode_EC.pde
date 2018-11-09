@@ -11,7 +11,7 @@
 int gameScreen = 0;
 
 // gameplay settings
-float gravity = .3;
+float gravity = .31;
 float airfriction = 0.00001;
 float friction = 0.1;
 
